@@ -10,7 +10,7 @@ const vscode_languageclient_1 = require("vscode-languageclient");
 // Name of the launcher class which contains the main.
 const main = 'StdioLauncher';
 function activate(context) {
-    console.log('Congratulations, your extension "helloFalks" is now active!');
+    console.log('Congratulations, your "PL/1" extension is now active!');
     // Get the java home from the process environment.
     const { JAVA_HOME } = process.env;
     console.log(`Using java from JAVA_HOME: ${JAVA_HOME}`);
@@ -21,7 +21,7 @@ function activate(context) {
         // path to the launcher.jar
         let classPath = path.join(__dirname, '..', 'launcher', 'launcher.jar');
         const args = ['-cp', classPath];
-        // Set the server options 
+        // Set the server options
         // -- java execution path
         // -- argument to be pass when executing the java command
         let serverOptions = {
@@ -32,10 +32,10 @@ function activate(context) {
         // Options to control the language client
         let clientOptions = {
             // Register the server for plain text documents
-            documentSelector: [{ scheme: 'file', language: 'hello' }]
+            documentSelector: [{ scheme: 'file', language: 'pli' }]
         };
         // Create the language client and start the client.
-        let disposable = new vscode_languageclient_1.LanguageClient('helloLS', 'HelloFalks Language Server', serverOptions, clientOptions).start();
+        let disposable = new vscode_languageclient_1.LanguageClient('pli', 'pli Language Server', serverOptions, clientOptions).start();
         // Disposables to remove on deactivation.
         context.subscriptions.push(disposable);
     }
@@ -43,7 +43,7 @@ function activate(context) {
 exports.activate = activate;
 // this method is called when your extension is deactivated
 function deactivate() {
-    console.log('Your extension "helloFalks" is now deactivated!');
+    console.log('Your "PL/1" extension is now deactivated!');
 }
 exports.deactivate = deactivate;
 //# sourceMappingURL=extension.js.map

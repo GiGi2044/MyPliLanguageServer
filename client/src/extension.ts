@@ -14,7 +14,7 @@ import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-lan
 const main: string = 'StdioLauncher';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "helloFalks" is now active!');
+	console.log('Congratulations, your "PL/1" extension is now active!');
 
 	// Get the java home from the process environment.
 	const { JAVA_HOME } = process.env;
@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 		let classPath = path.join(__dirname, '..', 'launcher', 'launcher.jar');
 		const args: string[] = ['-cp', classPath];
 
-		// Set the server options 
+		// Set the server options
 		// -- java execution path
 		// -- argument to be pass when executing the java command
 		let serverOptions: ServerOptions = {
@@ -41,11 +41,11 @@ export function activate(context: vscode.ExtensionContext) {
 		// Options to control the language client
 		let clientOptions: LanguageClientOptions = {
 			// Register the server for plain text documents
-			documentSelector: [{ scheme: 'file', language: 'hello' }]
+			documentSelector: [{ scheme: 'file', language: 'pli' }]
 		};
 
 		// Create the language client and start the client.
-		let disposable = new LanguageClient('helloLS', 'HelloFalks Language Server', serverOptions, clientOptions).start();
+		let disposable = new LanguageClient('pli', 'pli Language Server', serverOptions, clientOptions).start();
 
 		// Disposables to remove on deactivation.
 		context.subscriptions.push(disposable);
@@ -53,6 +53,6 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() { 
-	console.log('Your extension "helloFalks" is now deactivated!');
+export function deactivate() {
+	console.log('Your "PL/1" extension is now deactivated!');
 }

@@ -1,16 +1,16 @@
 {
-	"name": "helloFalks",
-	"displayName": "HelloFalks",
-	"description": "Plugin for awesome HelloFalks lang ",
+	"name": "plilanguageserver",
+	"displayName": "plilanguageserver",
+	"description": "Language server for pli language",
 	"version": "0.0.1",
 	"engines": {
-		"vscode": "^1.38.0"
+		"vscode": "^1.91.0"
 	},
 	"categories": [
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage:hello",
+		"onLanguage:pli",
 		"onCommand:extension.helloWorld"
 	],
 	"main": "./out/extension.js",
@@ -21,26 +21,17 @@
 				"title": "Hello World"
 			}
 		],
-		"languages": [
-			{
-				"id": "hello",
-				"aliases": [
-					"HelloFalks",
-					"hello"
-				],
-				"extensions": [
-					".hello"
-				],
-				"configuration": "./language-configuration.json"
-			}
-		],
-		"grammars": [
-			{
-				"language": "hello",
-				"scopeName": "source.hello",
-				"path": "./syntaxes/hello.tmLanguage.json"
-			}
-		]
+		"languages": [{
+      "id": "pli",
+      "aliases": ["PL/1", "pli"],
+      "extensions": [".pli"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "pli",
+      "scopeName": "source.pli",
+      "path": "./syntaxes/pli.tmLanguage.json"
+    }]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
