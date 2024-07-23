@@ -1,4 +1,4 @@
-import org.hello.ls.langserver.HelloLanguageServer;
+import org.pli.ls.langserver.PliLanguageServer;
 import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.launch.LSPLauncher;
 import org.eclipse.lsp4j.services.LanguageClient;
@@ -36,15 +36,15 @@ public class StdioLauncher {
      */
     private static void startServer(InputStream in, OutputStream out) throws ExecutionException, InterruptedException {
         // Initialize the HelloLanguageServer
-        HelloLanguageServer helloLanguageServer = new HelloLanguageServer();
-        // Create JSON RPC launcher for HelloLanguageServer instance.
-        Launcher<LanguageClient> launcher = LSPLauncher.createServerLauncher(helloLanguageServer, in, out);
+        PliLanguageServer PliLanguageServer = new PliLanguageServer();
+        // Create JSON RPC launcher for PliLanguageServer instance.
+        Launcher<LanguageClient> launcher = LSPLauncher.createServerLauncher(PliLanguageServer, in, out);
 
         // Get the client that request to launch the LS.
         LanguageClient client = launcher.getRemoteProxy();
 
         // Set the client to language server
-        helloLanguageServer.connect(client);
+        PliLanguageServer.connect(client);
 
         // Start the listener for JsonRPC
         Future<?> startListening = launcher.startListening();
