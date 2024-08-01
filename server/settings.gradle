@@ -1,0 +1,4 @@
+rootProject.name = 'Plils-parent'
+include(':launcher')
+include(':langserver-core')
+project(":langserver-core").projectDir = file('language-server')
