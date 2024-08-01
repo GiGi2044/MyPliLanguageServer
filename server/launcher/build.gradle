@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':langserver-core')
+    implementation 'org.eclipse.lsp4j:org.eclipse.lsp4j:0.4.1'
+}
+
+shadowJar {
+    archiveBaseName.set('launcher')
+    archiveClassifier.set('')
+    archiveVersion.set('') // This ensures the JAR file is named `launcher.jar`
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': 'StdioLauncher'
+    }
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
+}
+
+tasks.build {
+    dependsOn tasks.shadowJar
+}
