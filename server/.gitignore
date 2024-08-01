@@ -1,5 +1,6 @@
 server/language-server/src/main/java/org/.DS_Store
-server/build/
 node_modules/
 out/
 .gradle/
+**/build/
+target/
