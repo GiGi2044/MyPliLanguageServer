@@ -28,3 +28,19 @@ shadowJar {
 tasks.build {
     dependsOn tasks.shadowJar
 }
+
+// Define the source and destination paths
+def sourceFile = file("$buildDir/libs/launcher.jar")
+def destinationDir = file("/Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/client/launcher")
+
+// Task to copy the launcher.jar file
+task copyLauncherJar(type: Copy) {
+    from sourceFile
+    into destinationDir
+    doLast {
+        println "Copied launcher.jar to $destinationDir"
+    }
+}
+
+// Make sure the copy task runs after the build task
+tasks.build.finalizedBy(copyLauncherJar)
