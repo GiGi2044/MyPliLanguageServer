@@ -1,10 +1,25 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm'
+    id 'antlr'
 }
 
 description = 'langserver-core'
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    antlr 'org.antlr:antlr4:4.9.3'
+    implementation 'com.strumenta.kolasu:kolasu-core:1.5.0'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30' // Add this if you want a simple logging implementation
 }
+
+generateGrammarSource {
+    inputs.files fileTree('src/main/antlr').include('**/*.g4')
+    maxHeapSize = "64m"
+    arguments += ['-package', 'com.pli.compiler.parser']
+    outputDirectory = file("$buildDir/generated-src/antlr/main/com/pli/compiler/parser")
+}
+
+compileJava.dependsOn generateGrammarSource
+sourceSets.main.java.srcDir file("$buildDir/generated-src/antlr/main")
