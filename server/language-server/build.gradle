@@ -9,9 +9,6 @@ description = 'langserver-core'
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
     antlr 'org.antlr:antlr4:4.9.3'
-    implementation 'com.strumenta.kolasu:kolasu-core:1.5.0'
-    implementation 'org.slf4j:slf4j-api:1.7.30'
-    implementation 'org.slf4j:slf4j-simple:1.7.30' // Add this if you want a simple logging implementation
 }
 
 generateGrammarSource {
