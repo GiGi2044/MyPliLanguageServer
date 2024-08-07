@@ -20,3 +20,25 @@ generateGrammarSource {
 
 compileJava.dependsOn generateGrammarSource
 sourceSets.main.java.srcDir file("$buildDir/generated-src/antlr/main")
+
+// Ensure compileKotlin depends on generateGrammarSource
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    dependsOn generateGrammarSource
+}
+
+// Define generateTestGrammarSource task
+generateTestGrammarSource {
+    inputs.files fileTree('src/test/antlr').include('**/*.g4')
+    maxHeapSize = "64m"
+    arguments += ['-package', 'com.pli.compiler.parser']
+    outputDirectory = file("$buildDir/generated-src/antlr/test/com/pli/compiler/parser")
+}
+
+compileTestKotlin.dependsOn generateTestGrammarSource
+sourceSets.test.java.srcDir file("$buildDir/generated-src/antlr/test")
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    if (name.contains("Test")) {
+        dependsOn generateTestGrammarSource
+    }
+}
