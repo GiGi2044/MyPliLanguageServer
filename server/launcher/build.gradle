@@ -31,7 +31,7 @@ tasks.build {
 
 // Define the source and destination paths
 def sourceFile = file("$buildDir/libs/launcher.jar")
-def destinationDir = file("/Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/client/launcher")
+def destinationDir = file("client/launcher")
 
 // Task to copy the launcher.jar file
 task copyLauncherJar(type: Copy) {
