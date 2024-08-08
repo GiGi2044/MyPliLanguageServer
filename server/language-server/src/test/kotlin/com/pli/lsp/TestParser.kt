@@ -12,7 +12,7 @@ class TestParser {
 
     @Test
     fun testURI() {
-        val uri = URI("file:///Volumes/development/heirloom/customer/bmw/mmrs_refactoring/src/test/preprocessed/testinit.pli")
+        val uri = URI("file:/Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli")
         PLIParserFacade.parse(File(uri.path))
         println("test")
 
