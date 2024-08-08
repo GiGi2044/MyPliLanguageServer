@@ -6,20 +6,34 @@ plugins {
 
 description = 'langserver-core'
 
+def generatedMain = "src/main/java"
+def generatedMainFile = file(generatedMain)
+
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
     antlr 'org.antlr:antlr4:4.9.3'
+    //implementation "com.strumenta:kolasu:1.0.5"
+    implementation 'com.strumenta.kolasu:kolasu-core:1.3.3'
+    implementation 'org.slf4j:slf4j-api:1.7.28'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+
+    // Add JUnit for testing
+    testImplementation 'junit:junit:4.13.2'
+
+    // Add JUnit 5 (JUnit Platform)
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 generateGrammarSource {
     inputs.files fileTree('src/main/antlr').include('**/*.g4')
     maxHeapSize = "64m"
     arguments += ['-package', 'com.pli.compiler.parser']
-    outputDirectory = file("$buildDir/generated-src/antlr/main/com/pli/compiler/parser")
+    outputDirectory = file(generatedMain + "/com/pli/compiler/parser")
 }
 
 compileJava.dependsOn generateGrammarSource
-sourceSets.main.java.srcDir file("$buildDir/generated-src/antlr/main")
+compileJava.source generatedMainFile, sourceSets.main.java
 
 // Ensure compileKotlin depends on generateGrammarSource
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
@@ -41,4 +55,8 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     if (name.contains("Test")) {
         dependsOn generateTestGrammarSource
     }
+}
+
+test {
+    useJUnitPlatform()
 }

@@ -1,4 +1,4 @@
-import org.pli.ls.langserver.PliLanguageServer
+import com.pli.ls.langserver.PliLanguageServer
 import org.eclipse.lsp4j.launch.LSPLauncher
 import org.eclipse.lsp4j.services.LanguageClient
 import java.io.InputStream
