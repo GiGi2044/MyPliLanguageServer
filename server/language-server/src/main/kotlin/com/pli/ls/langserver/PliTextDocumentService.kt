@@ -6,7 +6,27 @@ import org.eclipse.lsp4j.services.TextDocumentService
 import java.util.concurrent.CompletableFuture
 import java.util.function.Supplier
 
-class PliTextDocumentService : TextDocumentService {
+import kotlin.system.measureTimeMillis
+import com.pli.compiler.parser.CompilationUnit
+import com.pli.compiler.parser.ast.*
+import java.io.Closeable
+import java.io.File
+import java.net.URI
+import com.pli.compiler.parser.PLIKParser
+import com.strumenta.kolasu.validation.Issue
+import com.strumenta.kolasu.validation.IssueType
+import org.slf4j.LoggerFactory
+import org.eclipse.lsp4j.services.LanguageClient
+import org.eclipse.lsp4j.services.LanguageClientAware
+
+data class ASTWrapper(val ast: CompilationUnit,val errors: List<Issue>)
+class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentService, LanguageClientAware, Closeable {
+  private val LOG = LoggerFactory.getLogger(javaClass)
+  private lateinit var client: LanguageClient
+  private val async = AsyncExecutor()
+  private val syntaxTrees : HashMap<String, ASTWrapper> = hashMapOf()
+  private val sources : MutableList<String> = mutableListOf()
+
     override fun completion(completionParams: CompletionParams?): CompletableFuture<Either<List<CompletionItem>, CompletionList>> {
         return CompletableFuture.supplyAsync {
             val completionItems: MutableList<CompletionItem> = ArrayList()
@@ -80,11 +100,118 @@ class PliTextDocumentService : TextDocumentService {
         return CompletableFuture.completedFuture(null)
     }
 
-    override fun didOpen(didOpenTextDocumentParams: DidOpenTextDocumentParams?) {}
+  fun publishDiagnostics(uri: String, astWrapper: ASTWrapper) {
+      val errors : MutableList<Diagnostic> = mutableListOf()
+      //this.client.publishDiagnostics(PublishDiagnosticsParams(uri,errors))
 
-    override fun didChange(didChangeTextDocumentParams: DidChangeTextDocumentParams?) {}
+      astWrapper.errors.map {
+          //LOG.info("error ${it.position} ${it.message}")
+          if(it.position != null) {
+              val end_line = it.position!!.end.line - 1
+              val end_column = it.position!!.end.column
+              val start_line = it.position!!.start.line - 1
+              val start_column = it.position!!.start.column
 
-    override fun didClose(didCloseTextDocumentParams: DidCloseTextDocumentParams?) {}
+              val range = Range(Position(start_line,start_column),Position(end_line,end_column))
+              errors.add(Diagnostic(range,it.message))
+          } else {
+              val range = Range(Position(0,0),Position(1,1))
+              errors.add(Diagnostic(range,"Internal error: ${it.message}"))
+          }
+      }
+      this.client.publishDiagnostics(PublishDiagnosticsParams(uri,errors))
+  }
+  fun parse(uri: String) = async.compute {
+      val sourceFile = URI(uri).path
+      val parser = PLIKParser()
+      LOG.info("parsing: $uri $sourceFile")
+      try {
+          val errors: MutableList<Diagnostic> = mutableListOf()
 
-    override fun didSave(didSaveTextDocumentParams: DidSaveTextDocumentParams?) {}
+          this.client.publishDiagnostics(PublishDiagnosticsParams(uri,errors))
+
+          val elapsed = measureTimeMillis {
+              val result = parser.parse(File(sourceFile), considerPosition = false)
+
+              if (result.correct) {
+                  LOG.warn("syntax tree added: $uri")
+              }
+
+              result.issues.map {
+                  LOG.info("error ${it.position} ${it.message}")
+                  val end_line = it.position!!.end.line - 1
+                  val end_column = it.position!!.end.column
+                  val start_line = it.position!!.start.line - 1
+                  val start_column = it.position!!.start.column
+
+                  val range = Range(Position(start_line, start_column), Position(end_line, end_column))
+                  errors.add(Diagnostic(range, it.message))
+              }
+              syntaxTrees[uri] = ASTWrapper(result.root!!, result.issues)
+              this.client.publishDiagnostics(PublishDiagnosticsParams(uri,errors))
+          }
+          LOG.debug("parsing: $elapsed msec")
+
+
+
+      } catch (e: Exception) {
+          LOG.error("e ${uri},${syntaxTrees[uri]}" + e.stackTraceToString())
+      }
+  }
+
+//override fun completion(p0: CompletionParams): CompletableFuture<(Either<(MutableList<(CompletionItem..CompletionItem?)>..List<(CompletionItem..CompletionItem?)>?), (CompletionList..CompletionList?)>..Either<(MutableList<(CompletionItem..CompletionItem?)>..List<(CompletionItem..CompletionItem?)>?), (CompletionList..CompletionList?)>?)> { }
+//
+//override fun resolveCompletionItem(p0: CompletionItem): CompletableFuture<(CompletionItem..CompletionItem?)> { }
+//
+//override fun hover(p0: TextDocumentPositionParams): CompletableFuture<(Hover..Hover?)> { }
+//
+//override fun signatureHelp(p0: TextDocumentPositionParams): CompletableFuture<(SignatureHelp..SignatureHelp?)> { }
+//
+//override fun definition(p0: TextDocumentPositionParams): CompletableFuture<(MutableList<out (Location..Location?)>..List<(Location..Location?)>?)> { }
+//
+//override fun references(p0: ReferenceParams): CompletableFuture<(MutableList<out (Location..Location?)>..List<(Location..Location?)>?)> { }
+//
+//override fun documentHighlight(p0: TextDocumentPositionParams): CompletableFuture<(MutableList<out (DocumentHighlight..DocumentHighlight?)>..List<(DocumentHighlight..DocumentHighlight?)>?)> { }
+//
+//override fun documentSymbol(p0: DocumentSymbolParams): CompletableFuture<(MutableList<out (SymbolInformation..SymbolInformation?)>..List<(SymbolInformation..SymbolInformation?)>?)> { }
+//
+//override fun codeAction(p0: CodeActionParams): CompletableFuture<(MutableList<out (Command..Command?)>..List<(Command..Command?)>?)> { }
+//
+//override fun codeLens(p0: CodeLensParams): CompletableFuture<(MutableList<out (CodeLens..CodeLens?)>..List<(CodeLens..CodeLens?)>?)> { }
+//
+//override fun resolveCodeLens(p0: CodeLens): CompletableFuture<(CodeLens..CodeLens?)> { }
+//
+//override fun formatting(p0: DocumentFormattingParams): CompletableFuture<(MutableList<out (TextEdit..TextEdit?)>..List<(TextEdit..TextEdit?)>?)> { }
+//
+//override fun rangeFormatting(p0: DocumentRangeFormattingParams): CompletableFuture<(MutableList<out (TextEdit..TextEdit?)>..List<(TextEdit..TextEdit?)>?)> { }
+//
+//override fun onTypeFormatting(p0: DocumentOnTypeFormattingParams): CompletableFuture<(MutableList<out (TextEdit..TextEdit?)>..List<(TextEdit..TextEdit?)>?)> { }
+//
+//override fun rename(p0: RenameParams): CompletableFuture<(WorkspaceEdit..WorkspaceEdit?)> { }
+
+  override fun didOpen(params: DidOpenTextDocumentParams) {
+    LOG.info("didOpen: ${params.textDocument.uri}")
+
+    val ast = syntaxTrees[params.textDocument.uri]
+    if(ast != null) {
+        LOG.info("FOUND ast: ${params.textDocument.uri}")
+        publishDiagnostics(params.textDocument.uri,ast)
+    }
+
+    if(params.textDocument.languageId.contentEquals("pli")) {
+      parse(params.textDocument.uri)
+      sources.add(params.textDocument.uri)
+    }
+
+  }
+
+  override fun didChange(p0: DidChangeTextDocumentParams) { }
+
+  override fun didClose(p0: DidCloseTextDocumentParams) { }
+
+  override fun didSave(p0: DidSaveTextDocumentParams) { }
+
+  override fun connect(p0: LanguageClient) { }
+
+  override fun close() { }
 }
