@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Supplier
 
 class PliLanguageServer : LanguageServer, LanguageClientAware {
-    private val textDocumentService: TextDocumentService = PliTextDocumentService()
+    private val textDocumentService = PliTextDocumentService(this)
     private val workspaceService: WorkspaceService = PliWorkspaceService()
     private var client: LanguageClient? = null
     private var errorCode = 1
