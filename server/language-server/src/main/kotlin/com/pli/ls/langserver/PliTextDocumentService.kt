@@ -205,13 +205,26 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
 
   }
 
-  override fun didChange(p0: DidChangeTextDocumentParams) { }
+  override fun didChange(params: DidChangeTextDocumentParams) {
+    LOG.info("didChange")
+    parse(params.textDocument.uri)
+  }
 
-  override fun didClose(p0: DidCloseTextDocumentParams) { }
+  override fun didClose(params: DidCloseTextDocumentParams) {
+    LOG.info("didClose")
+  }
 
-  override fun didSave(p0: DidSaveTextDocumentParams) { }
+  override fun didSave(params: DidSaveTextDocumentParams) {
+    LOG.info("didSave")
+    parse(params.textDocument.uri)
+  }
 
-  override fun connect(p0: LanguageClient) { }
+  override fun connect(client: LanguageClient) {
+    LOG.info("connect")
+    this.client = client
+   }
 
-  override fun close() { }
+  override fun close() {
+    LOG.info("close")
+  }
 }
