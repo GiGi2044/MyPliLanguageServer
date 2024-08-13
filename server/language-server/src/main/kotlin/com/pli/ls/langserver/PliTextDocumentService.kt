@@ -30,8 +30,9 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
   private val async = AsyncExecutor()
   private val syntaxTrees : HashMap<String, ASTWrapper> = hashMapOf()
   private val sources : MutableList<String> = mutableListOf()
+
   override fun connect(client: LanguageClient) {
-    LOG.info("connect")
+    LOG.info("connect to TextDocumentService")
     this.client = client
    }
 

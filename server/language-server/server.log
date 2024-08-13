@@ -1,23 +1,31 @@
-2024-08-13 23:22:45:275 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - Connected to Language Client: EndpointProxy for org.eclipse.lsp4j.jsonrpc.RemoteEndpoint@35083305
-2024-08-13 23:22:45:305 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didOpen: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-13 23:22:45:305 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-13 23:22:45:306 +0200 [pool-1-thread-1] ERROR com.pli.ls.langserver.PliTextDocumentService - e file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli,nullkotlin.UninitializedPropertyAccessException: lateinit property client has not been initialized
-	at com.pli.ls.langserver.PliTextDocumentService.parse(PliTextDocumentService.kt:335)
-	at com.pli.ls.langserver.PliTextDocumentService.didOpen(PliTextDocumentService.kt:48)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$null$0(GenericEndpoint.java:61)
-	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:148)
-	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:216)
-	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:183)
-	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:188)
-	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:90)
-	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:95)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:829)
-
+2024-08-14 01:15:12:762 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - Connected to Language Client: EndpointProxy for org.eclipse.lsp4j.jsonrpc.RemoteEndpoint@35083305
+2024-08-14 01:15:12:762 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - connected to workspace
+2024-08-14 01:15:12:762 +0200 [main] INFO com.pli.ls.langserver.PliTextDocumentService - connect to TextDocumentService
+2024-08-14 01:15:12:776 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - Adding workspace file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample to source path
+2024-08-14 01:15:12:787 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:15:13:304 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didOpen: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:15:13:331 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:15:13:332 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 536 msec
+2024-08-14 01:15:13:332 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:15:13:340 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:15:13:340 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 8 msec
+2024-08-14 01:15:37:519 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - definition 24,14 
+2024-08-14 01:15:37:520 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:15:37:525 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - class com.pli.compiler.parser.ast.Identifier
+2024-08-14 01:15:37:525 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
+2024-08-14 01:15:37:525 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
+2024-08-14 01:15:37:529 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - name: n n
+2024-08-14 01:15:37:529 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - name: n n
+2024-08-14 01:16:21:303 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - definition 10,17 
+2024-08-14 01:16:21:304 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:16:21:306 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - class com.pli.compiler.parser.ast.Identifier
+2024-08-14 01:16:21:306 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
+2024-08-14 01:16:21:306 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
+2024-08-14 01:16:28:352 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didSave
+2024-08-14 01:16:28:353 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:16:28:357 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 01:16:28:357 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 4 msec
+2024-08-14 01:16:49:505 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - Shutting down PL/1 Language Server
+2024-08-14 01:16:49:505 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - close
+2024-08-14 01:16:49:505 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - closing workspace
+2024-08-14 01:16:49:505 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - close
