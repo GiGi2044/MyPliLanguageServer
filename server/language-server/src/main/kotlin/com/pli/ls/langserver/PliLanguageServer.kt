@@ -5,10 +5,15 @@ import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.eclipse.lsp4j.services.*
 import java.util.concurrent.CompletableFuture
 import java.util.function.Supplier
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class PliLanguageServer : LanguageServer, LanguageClientAware {
+      // Initialize logger
+    private val logger: Logger = LoggerFactory.getLogger(PliLanguageServer::class.java)
+
     private val textDocumentService = PliTextDocumentService(this)
-    private val workspaceService: WorkspaceService = PliWorkspaceService()
+    private val workspaceService = PliWorkspaceService(this)
     private var client: LanguageClient? = null
     private var errorCode = 1
 
@@ -22,6 +27,8 @@ class PliLanguageServer : LanguageServer, LanguageClientAware {
     }
 
     override fun shutdown(): CompletableFuture<Any> {
+        logger.info("Shutting down PL/1 Language Server")
+
         errorCode = 0
         return CompletableFuture.completedFuture(null)
     }
@@ -40,5 +47,6 @@ class PliLanguageServer : LanguageServer, LanguageClientAware {
 
     override fun connect(languageClient: LanguageClient) {
         this.client = languageClient
+        logger.info("Connected to Language Client: $client")
     }
 }

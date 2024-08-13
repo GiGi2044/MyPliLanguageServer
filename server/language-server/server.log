@@ -1,0 +1,23 @@
+2024-08-13 23:22:45:275 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - Connected to Language Client: EndpointProxy for org.eclipse.lsp4j.jsonrpc.RemoteEndpoint@35083305
+2024-08-13 23:22:45:305 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didOpen: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-13 23:22:45:305 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-13 23:22:45:306 +0200 [pool-1-thread-1] ERROR com.pli.ls.langserver.PliTextDocumentService - e file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli,nullkotlin.UninitializedPropertyAccessException: lateinit property client has not been initialized
+	at com.pli.ls.langserver.PliTextDocumentService.parse(PliTextDocumentService.kt:335)
+	at com.pli.ls.langserver.PliTextDocumentService.didOpen(PliTextDocumentService.kt:48)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$null$0(GenericEndpoint.java:61)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:148)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:216)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:183)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:188)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:90)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:95)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+

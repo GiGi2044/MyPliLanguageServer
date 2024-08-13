@@ -1,6 +1,7 @@
 package com.pli.ls.langserver
 
 import org.eclipse.lsp4j.*
+import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.eclipse.lsp4j.services.TextDocumentService
 import java.util.concurrent.CompletableFuture
@@ -16,8 +17,11 @@ import com.pli.compiler.parser.PLIKParser
 import com.strumenta.kolasu.validation.Issue
 import com.strumenta.kolasu.validation.IssueType
 import org.slf4j.LoggerFactory
+import org.slf4j.Logger
 import org.eclipse.lsp4j.services.LanguageClient
 import org.eclipse.lsp4j.services.LanguageClientAware
+
+import com.strumenta.kolasu.model.*
 
 data class ASTWrapper(val ast: CompilationUnit,val errors: List<Issue>)
 class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentService, LanguageClientAware, Closeable {
@@ -26,6 +30,44 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
   private val async = AsyncExecutor()
   private val syntaxTrees : HashMap<String, ASTWrapper> = hashMapOf()
   private val sources : MutableList<String> = mutableListOf()
+  override fun connect(client: LanguageClient) {
+    LOG.info("connect")
+    this.client = client
+   }
+
+  override fun didOpen(params: DidOpenTextDocumentParams) {
+    LOG.info("didOpen: ${params.textDocument.uri}")
+
+    val ast = syntaxTrees[params.textDocument.uri]
+    if(ast != null) {
+        LOG.info("FOUND ast: ${params.textDocument.uri}")
+        publishDiagnostics(params.textDocument.uri,ast)
+    }
+
+    if(params.textDocument.languageId.contentEquals("pli")) {
+      parse(params.textDocument.uri)
+      sources.add(params.textDocument.uri)
+    }
+
+  }
+
+  override fun didChange(params: DidChangeTextDocumentParams) {
+    LOG.info("didChange")
+    parse(params.textDocument.uri)
+  }
+
+  override fun didClose(params: DidCloseTextDocumentParams) {
+    LOG.info("didClose")
+  }
+
+  override fun didSave(params: DidSaveTextDocumentParams) {
+    LOG.info("didSave")
+    parse(params.textDocument.uri)
+  }
+
+  override fun close() {
+    LOG.info("close")
+  }
 
     override fun completion(completionParams: CompletionParams?): CompletableFuture<Either<List<CompletionItem>, CompletionList>> {
         return CompletableFuture.supplyAsync {
@@ -44,6 +86,164 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
         }
     }
 
+    override fun definition(params: TextDocumentPositionParams?): CompletableFuture<List<Location>> {
+      val locations: MutableList<Location> = mutableListOf()
+
+      val line = params!!.position.line + 1
+      val column = params.position.character
+      val point = Point(line, column)
+      LOG.info("definition $line,$column ")
+
+      val astWrapper = syntaxTrees[params.textDocument.uri]
+      if (astWrapper != null) {
+          LOG.info("FOUND ast: ${params.textDocument.uri}")
+
+          val target = astWrapper.ast.walk().filter { it.position != null && it.position!!.contains(point) }.lastOrNull()
+          if (target != null) {
+              LOG.debug("${target!!.javaClass}")
+              when {
+                  target is ProcedureDeclaration -> {
+                      locations.addAll(resolveProcedureDeclaration1(target.label))
+                  }
+                  target is CallStatement -> {
+                      locations.addAll(resolveProcedureDeclaration1(target.target))
+                  }
+                  target is DeclareStatement -> {
+                      LOG.info("${target.javaClass.name}")
+                      target.declarations.forEach { decl ->
+                          if (decl.dataType is EntryType) {
+                              locations.addAll(resolveProcedureDeclaration1(decl.name))
+                          }
+                      }
+                  }
+                  target is DataDeclaration -> {
+                      LOG.info("${target.javaClass.name}: ${target.name}")
+                      if (target.dataType is EntryType) {
+                          locations.addAll(resolveProcedureDeclaration1(target.name))
+                      }
+                  }
+                  target is Identifier -> {
+                      LOG.info("${target.javaClass.name}: ${target.name}")
+                      var x = target
+                      val full = mutableListOf<String>()
+                      while (x!!.parent != null && x is Identifier) {
+                          full.add(0, x.name)
+                          x = x.parent
+                      }
+                      val name = full.joinToString(".")
+                      LOG.info("${target.javaClass.name}: ${name}")
+
+                      locations.addAll(resolveIdentifier(astWrapper.ast, name, params.textDocument.uri, target))
+                  }
+                  else -> {
+                      LOG.warn("Definition unsupported: ${target.javaClass.name}")
+                  }
+              }
+          } else {
+              LOG.warn("Definition target null")
+          }
+      }
+      return CompletableFuture.completedFuture(locations)
+  }
+
+
+    private fun resolveProcedureDeclaration1(target: String?): List<Location> {
+      val locations : MutableList<Location> = mutableListOf()
+//        if(Index.procedureIdx.containsKey(target!!.toUpperCase())) {
+//            LOG.debug("index hit $target")
+//            val xx = Index.procedureIdx[target!!.toUpperCase()]
+//            val rng = createRange(xx!!.node.position!!)
+//            locations.add(Location(xx.uri,rng))
+//            return locations
+//        }
+      syntaxTrees.forEach { entry ->
+          val ast = entry.value.ast
+          val uri = entry.key
+          ast.walk().forEach { stmt ->
+              when {
+                  stmt is ProcedureDeclaration -> {
+                      if(target.equals(stmt.label,true)) {
+                          val rng = createRange(stmt.position!!)
+                          locations.add(Location(uri,rng))
+                          return locations
+                      }
+                  }
+                  /*stmt is DeclareStatement -> {
+                      stmt.declarations.forEach { decl ->
+                          if(decl.dataType is EntryType && decl.name.equals(target,true)){
+                              val rng = createRange(stmt.position!!)
+                              locations.add(Location(uri,rng))
+                          }
+                      }
+                  }*/
+              }
+          }
+      }
+      return locations
+    }
+    private fun resolveProcedureDeclaration(uri: String, ast: PLIProgram, target: String?): List<Location> {
+      val locations : MutableList<Location> = mutableListOf()
+
+      ast.walk().forEach { stmt ->
+          when {
+              stmt is ProcedureDeclaration -> {
+                  if(target.equals(stmt.label,true)) {
+                      val rng = createRange(stmt.position!!)
+                      locations.add(Location(uri,rng))
+                  }
+              }
+              stmt is DeclareStatement -> {
+                  stmt.declarations.forEach { decl ->
+                      if(decl.dataType is EntryType && decl.name.equals(target,true)){
+                          val rng = createRange(stmt.position!!)
+                          locations.add(Location(uri,rng))
+                      }
+                  }
+              }
+          }
+      }
+      return locations
+    }
+
+  fun resolveIdentifier(ast: CompilationUnit, name: String, uri: String,target : Identifier ) :  List<Location> {
+      /* Splits the names */
+      val members = name.split(".").reversed()
+      val results : MutableList<Location> = mutableListOf()
+      val candidates : MutableList<DataDeclaration> = mutableListOf()
+
+      val proc = target.findAncestorOfType(ProcedureDeclaration::class.java)
+      if(proc != null) {
+          proc.params.forEach { param ->
+              if(param.name.equals(target.name,true)) {
+                  val rng = createRange(param.position!!)
+                  results.add(Location(uri,rng))
+                  return results
+              }
+          }
+      }
+
+      ast.walkDescendants(DataDeclaration::class)
+              .filter {
+                  it.name.equals(members[0],true)
+              }.forEach {
+                  candidates.add(it)
+              }
+          candidates.forEach { it ->
+              val symbols : MutableList<String> = mutableListOf(it.name)
+              it.walkAncestors().filter { (it is DataDeclaration) }.forEach { parent ->
+                  val x = parent  as DataDeclaration
+                  symbols.add(0,parent.name)
+              }
+              if(symbols.containsAll(members)) {
+                  LOG.debug("name: $name ${symbols.joinToString(".")}")
+                  val rng = createRange(it.position!!)
+                  results.add(Location(uri,rng))
+              }
+          }
+
+      return results
+    }
+
     override fun resolveCompletionItem(completionItem: CompletionItem?): CompletableFuture<CompletionItem> {
         return CompletableFuture.completedFuture(completionItem)
     }
@@ -54,10 +254,6 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
 
     override fun signatureHelp(textDocumentPositionParams: TextDocumentPositionParams?): CompletableFuture<SignatureHelp> {
         return CompletableFuture.completedFuture(null)
-    }
-
-    override fun definition(textDocumentPositionParams: TextDocumentPositionParams?): CompletableFuture<List<Location>> {
-        return CompletableFuture.completedFuture(emptyList())
     }
 
     override fun references(referenceParams: ReferenceParams?): CompletableFuture<List<Location>> {
@@ -121,6 +317,14 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
       }
       this.client.publishDiagnostics(PublishDiagnosticsParams(uri,errors))
   }
+
+  fun createRange(pos: com.strumenta.kolasu.model.Position) : Range {
+    return Range(
+        Position(pos.start.line - 1, pos.start.column -1),
+        Position(pos.end.line - 1, pos.end.column -1),
+    )
+  }
+
   fun parse(uri: String) = async.compute {
       val sourceFile = URI(uri).path
       val parser = PLIKParser()
@@ -189,42 +393,4 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
 //
 //override fun rename(p0: RenameParams): CompletableFuture<(WorkspaceEdit..WorkspaceEdit?)> { }
 
-  override fun didOpen(params: DidOpenTextDocumentParams) {
-    LOG.info("didOpen: ${params.textDocument.uri}")
-
-    val ast = syntaxTrees[params.textDocument.uri]
-    if(ast != null) {
-        LOG.info("FOUND ast: ${params.textDocument.uri}")
-        publishDiagnostics(params.textDocument.uri,ast)
-    }
-
-    if(params.textDocument.languageId.contentEquals("pli")) {
-      parse(params.textDocument.uri)
-      sources.add(params.textDocument.uri)
-    }
-
-  }
-
-  override fun didChange(params: DidChangeTextDocumentParams) {
-    LOG.info("didChange")
-    parse(params.textDocument.uri)
-  }
-
-  override fun didClose(params: DidCloseTextDocumentParams) {
-    LOG.info("didClose")
-  }
-
-  override fun didSave(params: DidSaveTextDocumentParams) {
-    LOG.info("didSave")
-    parse(params.textDocument.uri)
-  }
-
-  override fun connect(client: LanguageClient) {
-    LOG.info("connect")
-    this.client = client
-   }
-
-  override fun close() {
-    LOG.info("close")
-  }
 }

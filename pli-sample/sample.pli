@@ -26,3 +26,6 @@ main: procedure;
     call factorial(n);
 
 end main;
+sayHello() {
+    print("hello")
+}
