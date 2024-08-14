@@ -70,22 +70,53 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
     LOG.info("close")
   }
 
-    override fun completion(completionParams: CompletionParams?): CompletableFuture<Either<List<CompletionItem>, CompletionList>> {
-        return CompletableFuture.supplyAsync {
-            val completionItems: MutableList<CompletionItem> = ArrayList()
-            try {
-                val completionItem = CompletionItem()
-                completionItem.insertText = "sayHello() {\n    print(\"hello\")\n}"
-                completionItem.label = "sayHello()"
-                completionItem.kind = CompletionItemKind.Snippet
-                completionItem.detail = "sayHello()\n this will say hello to the people"
-                completionItems.add(completionItem)
-            } catch (e: Exception) {
-                // Handle the exception
+  override fun completion(completionParams: CompletionParams?): CompletableFuture<Either<List<CompletionItem>, CompletionList>> {
+    LOG.info("Completion")
+    return CompletableFuture.supplyAsync {
+        val completionItems: MutableList<CompletionItem> = ArrayList()
+
+        val uri = completionParams?.textDocument?.uri ?: return@supplyAsync Either.forLeft(completionItems)
+        val position = completionParams.position
+        val astWrapper = syntaxTrees[uri]
+
+        if (astWrapper != null) {
+            // Determine the context in the AST
+            val line = position.line + 1
+            val column = position.character + 1
+            val point = Point(line, column)
+
+            val target = astWrapper.ast.walk()
+                .filter { it.position != null && it.position!!.contains(point) }
+                .lastOrNull()
+
+            if (target != null) {
+                LOG.info("Completion target found: ${target.javaClass.name}")
+
+                // Example: suggest keywords based on context
+                if (target is ProcedureDeclaration) {
+                    completionItems.add(CompletionItem().apply {
+                        label = "newProcedure"
+                        insertText = "procedure newProcedure() begin\nend"
+                        kind = CompletionItemKind.Keyword
+                        detail = "Define a new procedure"
+                    })
+                } else if (target is CallStatement) {
+                    completionItems.add(CompletionItem().apply {
+                        label = "callProcedure"
+                        insertText = "callProcedure()"
+                        kind = CompletionItemKind.Function
+                        detail = "Call an existing procedure"
+                    })
+                }
+
+                // Add more context-specific suggestions here
             }
-            Either.forLeft(completionItems)
         }
+
+        // Return the list of completion items
+        Either.forLeft(completionItems)
     }
+  }
 
     override fun definition(params: TextDocumentPositionParams?): CompletableFuture<List<Location>> {
       val locations: MutableList<Location> = mutableListOf()
