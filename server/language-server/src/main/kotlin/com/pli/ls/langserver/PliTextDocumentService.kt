@@ -451,6 +451,40 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
     )
   }
 
+  fun parse(sources : List<String>) = async.compute {
+
+    val elapsed = measureTimeMillis {
+        sources.forEach {  uri ->
+            val elapsed = measureTimeMillis {
+
+                try {
+                    val parser = PLIKParser()
+                    val result = parser.parse(File(URI(uri).path), considerPosition = false)
+                    syntaxTrees[uri] = ASTWrapper(result.root!!,result.issues)
+                    publishDiagnostics(uri,syntaxTrees[uri]!!)
+                    LOG.debug("syntax tree added: $uri")
+                } catch (e: Exception) {
+                    LOG.error("Error: $uri " + e.stackTraceToString())
+
+                    try {
+                        val errors: MutableList<Issue> = mutableListOf()
+                        val statements: MutableList<Statement> = mutableListOf()
+                        errors.add(Issue(IssueType.SYNTACTIC,e.stackTraceToString()))
+                        publishDiagnostics(uri,ASTWrapper(CompilationUnit(stmts = statements, filename = ""),errors))
+                        //syntaxTrees[uri] =
+                        //publishDiagnostics(uri,syntaxTrees[uri]!!)
+                    } catch (e1: Exception) {
+                        LOG.error("e1 ${uri},${syntaxTrees[uri]}" + e1.stackTraceToString())
+                    }
+
+                }
+            }
+            LOG.debug("parsing: $uri $elapsed msec")
+        }
+    }
+    LOG.debug("parsing ${sources.size} files $elapsed msec")
+  }
+
   fun parse(uri: String) = async.compute {
       val sourceFile = URI(uri).path
       val parser = PLIKParser()
