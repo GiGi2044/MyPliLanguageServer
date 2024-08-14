@@ -32,7 +32,9 @@ class PliLanguageServer : LanguageServer, LanguageClientAware, Closeable {
         initializeResult.capabilities.textDocumentSync = Either.forLeft(TextDocumentSyncKind.Full)
         val completionOptions = CompletionOptions()
         initializeResult.capabilities.completionProvider = completionOptions
-        initializeResult.capabilities.definitionProvider = true // Corrected to a Boolean
+        initializeResult.capabilities.hoverProvider = true
+        initializeResult.capabilities.referencesProvider = true
+        initializeResult.capabilities.definitionProvider = true
 
         if (initializeParams?.rootUri != null) {
           logger.info("Adding workspace ${initializeParams.rootUri} to source path")

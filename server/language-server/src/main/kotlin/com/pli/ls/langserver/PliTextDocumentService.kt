@@ -147,6 +147,70 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
       return CompletableFuture.completedFuture(locations)
   }
 
+  override fun references(params: ReferenceParams?): CompletableFuture<MutableList<out Location>> {
+    val locations : MutableList<Location> = mutableListOf()
+
+    val line = params!!.position.line + 1
+    val column = params!!.position.character + 1
+    val point = Point(line,column)
+    LOG.info("references $line,$column ")
+
+    val astWrapper = syntaxTrees[params.textDocument.uri]
+    if(astWrapper != null) {
+        LOG.info("FOUND ast: ${params.textDocument.uri}")
+
+
+//            astWrapper.ast.walk().forEach {
+//                 if(it.position != null) {
+//                     if(it.position!!.contains(point)) {
+//                        LOG.info("${it.javaClass.name}")
+//                     }
+//                 } else {
+//                     //LOG.info("${it.javaClass.name} -> NULL")
+//                 }
+//            }
+
+
+        val target = astWrapper.ast.walk().filter { it.position != null && it.position!!.contains(point)  }.lastOrNull()
+        if(target != null) {
+            when {
+                target is ProcedureDeclaration -> {
+                    LOG.info("${target.javaClass.name}: ${target.label}")
+                    locations.addAll(resolveProcedureReferences1(target.label))
+                    //locations.addAll(resolveProcedureReferences(params.textDocument.uri,astWrapper.ast,target.label))
+                }
+                target is DeclareStatement -> {
+                    LOG.info("${target.javaClass.name}")
+                    target.declarations.forEach { decl ->
+                        if(decl.dataType is EntryType){
+                            locations.addAll(resolveProcedureReferences(params.textDocument.uri,astWrapper.ast,decl.name))
+                        }
+                    }
+                }
+                target is CallStatement -> {
+                    LOG.info("${target.javaClass.name}: ${target.target}")
+                    locations.addAll(resolveProcedureReferences1(target.target))
+                    //locations.addAll(resolveProcedureReferences(params.textDocument.uri,astWrapper.ast,target.target))
+                }
+                target is DataDeclaration -> {
+                    LOG.info("${target.javaClass.name}: ${target.name}")
+                    if(target.dataType is EntryType){
+                        locations.addAll(resolveProcedureReferences1(target.name))
+                    }
+                    //locations.addAll(resolveProcedureReferences(params.textDocument.uri,astWrapper.ast,target.target))
+                }
+
+
+                else -> {
+                    LOG.warn("Unsupported: ${target.javaClass.name}")
+                }
+            }
+
+        }
+      }
+      return CompletableFuture.completedFuture(locations)
+    }
+
 
     private fun resolveProcedureDeclaration1(target: String?): List<Location> {
       val locations : MutableList<Location> = mutableListOf()
@@ -245,6 +309,40 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
       return results
     }
 
+    private fun resolveProcedureReferences1(label: String?): List<Location> {
+      val locations : MutableList<Location> = mutableListOf()
+      syntaxTrees.forEach { entry ->
+          val ast = entry.value.ast
+          val uri = entry.key
+          ast.walk().forEach { stmt ->
+              when {
+                  stmt is CallStatement -> {
+                      if (label.equals(stmt.target, true)) {
+                          val rng = createRange(stmt.position!!)
+                          locations.add(Location(uri, rng))
+                      }
+                  }
+              }
+          }
+      }
+      return locations
+  }
+  private fun resolveProcedureReferences(uri: String, ast: CompilationUnit, label: String?): List<Location> {
+      val locations : MutableList<Location> = mutableListOf()
+
+      ast.walk().forEach { stmt ->
+          when {
+              stmt is CallStatement -> {
+                  if(label.equals(stmt.target,true)) {
+                      val rng = createRange(stmt.position!!)
+                      locations.add(Location(uri,rng))
+                  }
+              }
+          }
+      }
+      return locations
+  }
+
     override fun resolveCompletionItem(completionItem: CompletionItem?): CompletableFuture<CompletionItem> {
         return CompletableFuture.completedFuture(completionItem)
     }
@@ -255,10 +353,6 @@ class PliTextDocumentService(val server : PliLanguageServer) : TextDocumentServi
 
     override fun signatureHelp(textDocumentPositionParams: TextDocumentPositionParams?): CompletableFuture<SignatureHelp> {
         return CompletableFuture.completedFuture(null)
-    }
-
-    override fun references(referenceParams: ReferenceParams?): CompletableFuture<List<Location>> {
-        return CompletableFuture.completedFuture(emptyList())
     }
 
     override fun documentHighlight(textDocumentPositionParams: TextDocumentPositionParams?): CompletableFuture<List<DocumentHighlight>> {
