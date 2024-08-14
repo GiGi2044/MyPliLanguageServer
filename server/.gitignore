@@ -1,6 +1,53 @@
-server/language-server/src/main/java/org/.DS_Store
-node_modules/
-out/
-.gradle/
+# Ignore build directories and their contents
 **/build/
-target/
+**/tmp/
+
+# Ignore jar files
+**/*.jar
+
+# Ignore Gradle files
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+# Ignore logs
+*.log
+
+# Ignore class files
+**/*.class
+
+# Ignore generated files
+**/*.bin
+**/*.idx
+**/*.MF
+
+# Ignore IntelliJ IDEA project files
+*.iml
+.idea/
+
+# Ignore VS Code project files
+.vscode/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore Kotlin specific files
+**/*.kotlin_module
+**/*.kotlin_metadata
+
+# Ignore compiled Kotlin classes and files
+**/*.kotlin_cache
+**/*.kotlin_reflect
+**/*.kotlin_type_table
+**/*.kotlin_ast
+
+# Ignore test results
+**/test-results/
+**/reports/
+
+# Ignore any temporary or backup files
+*~
+*.tmp
+*.bak

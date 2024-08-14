@@ -1,1 +1,12 @@
 node_modules/
+launcher/launcher.jar
+*.log
+dist/
+build/
+*.env
+coverage/
+*.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+.vscode/
