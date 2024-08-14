@@ -1,78 +1,78 @@
-2024-08-14 11:49:15:383 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - Connected to Language Client: EndpointProxy for org.eclipse.lsp4j.jsonrpc.RemoteEndpoint@35083305
-2024-08-14 11:49:15:383 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - connected to workspace
-2024-08-14 11:49:15:383 +0200 [main] INFO com.pli.ls.langserver.PliTextDocumentService - connect to TextDocumentService
-2024-08-14 11:49:15:405 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - Adding workspace file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample to source path
-2024-08-14 11:49:15:424 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-14 11:49:15:756 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didOpen: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-14 11:49:15:884 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-14 11:49:15:884 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 442 msec
-2024-08-14 11:49:15:884 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-14 11:49:15:890 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-14 11:49:15:890 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 6 msec
-2024-08-14 11:49:44:395 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - definition 10,17 
-2024-08-14 11:49:44:396 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
-2024-08-14 11:49:44:399 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - class com.pli.compiler.parser.ast.Identifier
-2024-08-14 11:49:44:399 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
-2024-08-14 11:49:44:399 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
-2024-08-14 11:49:58:008 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didOpen: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:49:58:009 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:49:58:010 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:49:58:010 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 1 msec
-2024-08-14 11:50:08:845 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:50:08:845 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:08:846 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:08:846 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 1 msec
-2024-08-14 11:50:08:982 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:50:08:982 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:08:983 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - Completion
-2024-08-14 11:50:08:984 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:08:985 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 3 msec
-2024-08-14 11:50:10:393 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:50:10:393 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:10:395 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:10:395 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 1 msec
-2024-08-14 11:50:11:149 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:50:11:150 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:11:151 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didSave
-2024-08-14 11:50:11:157 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:11:157 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 6 msec
-2024-08-14 11:50:11:157 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:11:158 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:50:11:158 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 1 msec
-2024-08-14 11:52:21:793 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:52:21:794 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:21:794 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - Completion
-2024-08-14 11:52:21:796 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:21:797 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 2 msec
-2024-08-14 11:52:22:947 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:52:22:948 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:22:950 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:22:950 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 1 msec
-2024-08-14 11:52:23:528 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:52:23:528 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:23:528 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didSave
-2024-08-14 11:52:23:533 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 3, Column 0, end=Line 3, Column 0) mismatched input '<EOF>' expecting {';', '(', OPTIONS, RECURSIVE, REORDER, RETURNS}
-2024-08-14 11:52:23:533 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 2, Column 0, end=Line 2, Column 0) Recognition exception: null
-2024-08-14 11:52:23:534 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 5 msec
-2024-08-14 11:52:23:534 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:23:535 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 3, Column 0, end=Line 3, Column 0) mismatched input '<EOF>' expecting {';', '(', OPTIONS, RECURSIVE, REORDER, RETURNS}
-2024-08-14 11:52:23:535 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 2, Column 0, end=Line 2, Column 0) Recognition exception: null
-2024-08-14 11:52:23:535 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 1 msec
-2024-08-14 11:52:34:695 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:52:34:695 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:34:700 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 3, Column 0, end=Line 3, Column 0) mismatched input '<EOF>' expecting {';', '(', OPTIONS, RECURSIVE, REORDER, RETURNS}
-2024-08-14 11:52:34:700 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 2, Column 0, end=Line 2, Column 0) Recognition exception: null
-2024-08-14 11:52:34:701 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 5 msec
-2024-08-14 11:52:35:447 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
-2024-08-14 11:52:35:448 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:35:450 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 3, Column 0, end=Line 3, Column 0) mismatched input '<EOF>' expecting {';', '(', OPTIONS, RECURSIVE, REORDER, RETURNS}
-2024-08-14 11:52:35:451 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - error Position(start=Line 2, Column 0, end=Line 2, Column 0) Recognition exception: null
-2024-08-14 11:52:35:451 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 3 msec
-2024-08-14 11:52:35:694 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didSave
-2024-08-14 11:52:35:696 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:35:698 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/hello.pli
-2024-08-14 11:52:35:698 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 1 msec
-2024-08-14 11:52:43:474 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - Shutting down PL/1 Language Server
-2024-08-14 11:52:43:474 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - close
-2024-08-14 11:52:43:474 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - closing workspace
-2024-08-14 11:52:43:474 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - close
+2024-08-14 14:00:04:544 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - Connected to Language Client: EndpointProxy for org.eclipse.lsp4j.jsonrpc.RemoteEndpoint@35083305
+2024-08-14 14:00:04:544 +0200 [main] INFO com.pli.ls.langserver.PliLanguageServer - connected to workspace
+2024-08-14 14:00:04:544 +0200 [main] INFO com.pli.ls.langserver.PliTextDocumentService - connect to TextDocumentService
+2024-08-14 14:00:04:555 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - Adding workspace file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample to source path
+2024-08-14 14:00:05:047 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didOpen: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:00:05:049 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:00:05:405 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:00:05:405 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 351 msec
+2024-08-14 14:02:27:061 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - definition 10,17 
+2024-08-14 14:02:27:061 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:02:27:071 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - class com.pli.compiler.parser.ast.Identifier
+2024-08-14 14:02:27:071 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
+2024-08-14 14:02:27:071 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: n
+2024-08-14 14:02:30:873 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - references 4,17 
+2024-08-14 14:02:30:873 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:02:30:875 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.ProcedureDeclaration: factorial
+2024-08-14 14:02:44:006 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - definition 26,13 
+2024-08-14 14:02:44:006 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:02:44:008 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - class com.pli.compiler.parser.ast.CallStatement
+2024-08-14 14:03:23:078 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - definition 26,14 
+2024-08-14 14:03:23:078 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:03:23:079 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - class com.pli.compiler.parser.ast.CallStatement
+2024-08-14 14:03:27:323 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - references 4,16 
+2024-08-14 14:03:27:324 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:03:27:328 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.ProcedureDeclaration: factorial
+2024-08-14 14:03:37:484 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - definition 11,11 
+2024-08-14 14:03:37:485 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - FOUND ast: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:03:37:486 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - class com.pli.compiler.parser.ast.Identifier
+2024-08-14 14:03:37:486 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: result
+2024-08-14 14:03:37:486 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - com.pli.compiler.parser.ast.Identifier: result
+2024-08-14 14:03:37:488 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - name: result result
+2024-08-14 14:03:37:488 +0200 [pool-1-thread-1] DEBUG com.pli.ls.langserver.PliTextDocumentService - name: result result
+2024-08-14 14:04:24:184 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:24:185 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:24:185 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - Completion
+2024-08-14 14:04:24:191 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:24:192 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 7 msec
+2024-08-14 14:04:37:738 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:37:739 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:37:751 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:37:751 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 11 msec
+2024-08-14 14:04:38:694 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:38:695 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:38:707 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:38:707 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 12 msec
+2024-08-14 14:04:39:075 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:39:075 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:39:075 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - Completion
+2024-08-14 14:04:39:138 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:39:138 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 62 msec
+2024-08-14 14:04:45:911 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:45:912 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:45:924 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:45:924 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 12 msec
+2024-08-14 14:04:46:322 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:46:323 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:46:329 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:46:329 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 6 msec
+2024-08-14 14:04:47:031 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:47:031 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:47:038 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:47:039 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 7 msec
+2024-08-14 14:04:47:252 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:47:253 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:47:259 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:47:259 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 6 msec
+2024-08-14 14:04:57:561 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didChange
+2024-08-14 14:04:57:562 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:57:563 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - didSave
+2024-08-14 14:04:57:565 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:57:565 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 3 msec
+2024-08-14 14:04:57:565 +0200 [async0] INFO com.pli.ls.langserver.PliTextDocumentService - parsing: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli /Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:57:567 +0200 [async0] WARN com.pli.ls.langserver.PliTextDocumentService - syntax tree added: file:///Users/giancunningham/code/GiGi2044/LSP/MyPliLanguageServer/pli-sample/sample.pli
+2024-08-14 14:04:57:567 +0200 [async0] DEBUG com.pli.ls.langserver.PliTextDocumentService - parsing: 2 msec
+2024-08-14 14:07:39:321 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - Shutting down PL/1 Language Server
+2024-08-14 14:07:39:321 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliTextDocumentService - close
+2024-08-14 14:07:39:321 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - closing workspace
+2024-08-14 14:07:39:321 +0200 [pool-1-thread-1] INFO com.pli.ls.langserver.PliLanguageServer - close
